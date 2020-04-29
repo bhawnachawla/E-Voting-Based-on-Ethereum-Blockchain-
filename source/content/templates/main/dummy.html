@@ -1,0 +1,158 @@
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <nav>
+            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                   aria-controls="nav-home" aria-selected="true">Voters database</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                   aria-controls="nav-profile" aria-selected="false">Dummy govt database</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Joined Date</th>
+                            <th>Type of ID</th>
+                            <th>username</th>
+                            <th>Email</th>
+                            <th>Privatekey</th>
+                            <th>Active</th>
+                            <th>Vote status</th>
+                            <th>Vote Result</th>
+                            <th>Dummy Exist?</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Joined Date</th>
+                            <th>Type of ID</th>
+                            <th>username</th>
+                            <th>Email</th>
+                            <th>Privatekey</th>
+                            <th>Active</th>
+                            <th>Vote status</th>
+                            <th>Vote Result</th>
+                            <th>Dummy Exist?</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        {% for voter in voters %}
+                        <tr>
+                            <td>{{voter.id_number}}</td>
+                            <td>{{voter.first_name}}</td>
+                            <td>{{voter.last_name}}</td>
+                            <td>{{voter.date_joined}}</td>
+                            <td>{{voter.id_type}}</td>
+                            <td>{{voter.username}}</td>
+                            <td>{{voter.email}}</td>
+                            <td>{{voter.privatekey_hex}}</td>
+                            <td>
+                                {% if voter.is_active == True %}
+                                <a href="#" class="btn btn-success btn-icon-split">
+                                    <span class="icon">
+                                      <i class="fas fa-check"></i>
+                                    </span>
+                                    <span class="text">actived</span>
+                                </a>
+                                {% else %}
+                                <a href="#" class="btn btn-danger btn-icon-split set-active-voter"  data-id="{{voter.id}}">
+                                    <span class="icon text-white-50">
+                                      <i class="fas fa-check"></i>
+                                    </span>
+                                    <span class="text">set active</span>
+                                </a>
+                                {% endif %}
+                            </td>
+                            <td style="text-align:center;vertical-align:middle;color:blue;">
+                                {% if voter.status == True %}
+                                <span class="icon text-green-50">
+                                    <i class="fas fa-flag"></i>
+                                </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if voter.status == True %}
+                                    {% if voter.vote_result == 0 %}
+                                        candidate1
+                                    {% elif voter.vote_result == 1 %}
+                                        candidate2
+                                    {% elif voter.vote_result == 2 %}
+                                        candidate3
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                            <td style="text-align:center;vertical-align:middle;color:#dc3545;">
+                                {% if voter.exist_dummy == True %}
+                                <span class="icon text-green-50">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Birthday</th>
+                            <th>Type of ID</th>
+                            <th>ID Number date</th>
+                            <th>Email</th>
+                            <th>SIN</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Birthday</th>
+                            <th>Type of ID</th>
+                            <th>ID Number date</th>
+                            <th>Email</th>
+                            <th>SIN</th>
+                        </tr>
+                        </tfoot>
+                        <tbody>
+                        {% for dummy_user in dummy_users %}
+                        <tr>
+                            <td>{{dummy_user.id}}</td>
+                            <td>{{dummy_user.first_name}}</td>
+                            <td>{{dummy_user.last_name}}</td>
+                            <td>{{dummy_user.DOB}}</td>
+                            <td>{{dummy_user.Type_Of_ID}}</td>
+                            <td>{{dummy_user.ID_Number}}</td>
+                            <td>{{dummy_user.email}}</td>
+                            <td>{{dummy_user.SIN}}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function onClickSetActive(voter_id){
+        alert("clicked setactive" + voter_id);
+        return false;
+    }
+</script>
